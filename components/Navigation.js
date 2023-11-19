@@ -10,12 +10,12 @@ import { AntDesign } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import Notifications from '../screens/Notifications'
 import Settings from '../screens/Settings'
-import Profile from '../screens/Profile'
+import Details from '../screens/Details'
 
 const Tab = createBottomTabNavigator()
 export default function Navigation() {
-    const Stack = createNativeStackNavigator()
-    function Topstack(){
+    const HomeStack = createNativeStackNavigator()
+   /* function Topstack(){
         return (
             <Stack.Navigator initialRouteName='home'>
             <Stack.Screen  name='home' 
@@ -24,13 +24,22 @@ export default function Navigation() {
             <Stack.Screen name='messages' component={Messages} />
         </Stack.Navigator>
         )
+    } */
+
+    function HomeStackGroup(){
+        return (
+            <HomeStack.Navigator>
+                <HomeStack.Screen name='Home' component={Home} />
+                <HomeStack.Screen name='Details' component={Details} />
+            </HomeStack.Navigator>
+        )
     }
     function Bottomstack(){
         return(
             <Tab.Navigator screenOptions={({route, navigation})=>({tabBarIcon: ({color, size, focused})=>{
                 let iconName;
 
-                if (route.name === "Home") {
+                if (route.name === "HomeStackGroup") {
                   iconName = focused
                     ? "ios-home-sharp"
                     : "md-home-outline";
@@ -46,10 +55,11 @@ export default function Navigation() {
     tabBarActiveTintColor: 'red',
     tabBarInactiveTintColor: 'green',
     tabBarActiveBackgroundColor: 'yellow'})}>
-                <Tab.Screen name="Home" component={Home} />
+                <Tab.Screen name="HomeStackGroup" component={HomeStackGroup} options={{tabBarLabel: 'Home', headerShown: false}} />
                 <Tab.Screen name='Messages' component={Messages} />
                 <Tab.Screen name='Notifications' component={Notifications} />
                 <Tab.Screen name='Settings' component={Settings} />
+
             </Tab.Navigator>
         )
     }

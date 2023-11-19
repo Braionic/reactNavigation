@@ -10,7 +10,7 @@ export default function Home({navigation}) {
     <View>
       <FlatList data={tweets} renderItem={({item})=>(
         <View>
-            <Pressable onPress={()=>navigation.navigate('Notifications', {id: item.id})}>
+            <Pressable onPress={()=>navigation.navigate('Details', {id: item.id})}>
             <Image  source={{uri: item.author.avatar}} width={50} height={50} />
             </Pressable>
             
