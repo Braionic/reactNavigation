@@ -13,7 +13,6 @@ export default function Home({navigation}) {
             <Pressable onPress={()=>navigation.navigate('Details', {id: item.id})}>
             <Image  source={{uri: item.author.avatar}} width={50} height={50} />
             </Pressable>
-            
             <Text>{item.author.name}</Text>
         </View>
       )} keyExtractor={(item)=> item.id} />

@@ -6,25 +6,17 @@ import { StyleSheet } from 'react-native'
 
 export default function Notifications({route}) {
     
-    const boy = tweets.filter((item)=> item.id == route.params.id)
+  
   return (
     <View style={styles.container}>
-      <FlatList data={boy} renderItem={({item})=>(
-        <View>
-            <Pressable onPress={()=>navigation.navigate('Notifications', {id: item.id})}>
-            <Image   source={{uri: item.author.avatar}} width={50} height={50} />
-            </Pressable>
-            
-            <Text>{item.author.name}</Text>
-        </View>
-      )} keyExtractor={(item)=> item.id} />
+      <Text>Notification screen</Text>
     </View>
   )
 }
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignContent: 'center',
+        justifyContent: 'center',
         alignItems: 'center'
     },
 
