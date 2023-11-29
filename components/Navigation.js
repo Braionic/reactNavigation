@@ -1,5 +1,5 @@
 import { DarkTheme, DefaultTheme, NavigationContainer } from "@react-navigation/native";
-import { View, Text, Image, Button, useColorScheme, Pressable } from "react-native";
+import { View, Text, Image, Button, useColorScheme, Pressable, StyleSheet } from "react-native";
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Messages from "../screens/Messages";
@@ -12,6 +12,7 @@ import Details from "../screens/Details";
 import {createDrawerNavigator} from '@react-navigation/drawer'
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs'
 import About from "./DrawerScreen/About";
+import { Avatar } from "react-native-elements";
 
 const Tab = createBottomTabNavigator();
 const HomeStack = createNativeStackNavigator();
@@ -19,10 +20,11 @@ const Drawer = createDrawerNavigator();
 const TopBar = createMaterialTopTabNavigator();
 export default function Navigation() {
 
-const theme = useColorScheme()
+const myTheme = useColorScheme()
+
     function ImageComponent(){
         return (
-            <Pressable><Image source={{uri: 'https://i.ibb.co/tDVz3VP/2021-12-19-17-22-IMG-3911.jpg'}} width={50} height={50} /></Pressable>
+            <Pressable><Image source={{uri: 'https://th.bing.com/th/id/R.2bee11a830bacc5ae9006df56b20c33a?rik=nXUBy4boCTrW8w&pid=ImgRaw&r=0'}} width={40} height={40} borderRadius={5} /></Pressable>
         )
     }
  
@@ -36,9 +38,9 @@ const theme = useColorScheme()
     }
     function DrawerStack(){
         return(
-            <Drawer.Navigator screenOptions={{headerShown: false}}>
-                <Drawer.Screen name='Bottomstack' options={{drawerLabel: 'Home', title: 'Menu'}} component={Bottomstack} />
-                <Drawer.Screen name='About' component={About} />
+            <Drawer.Navigator>
+                <Drawer.Screen name='Bottomstack' options={{drawerLabel: 'Home', title: 'Menu', headerShown: false}} component={Bottomstack} />
+                <Drawer.Screen name='About' component={About} options={{headerShown: true}} />
             </Drawer.Navigator>
         )
     }
@@ -77,13 +79,14 @@ const theme = useColorScheme()
           tabBarActiveTintColor: "red",
           tabBarInactiveTintColor: "green",
           tabBarActiveBackgroundColor: "yellow",
-          
+          headerRight: ()=> <Button title="Hello" onPress={()=> navigation.toggleDrawer()} />,
+          headerLeft: ()=> <Pressable onPress={()=>{navigation.openDrawer()}}><Avatar rounded square source={{uri: 'https://i.ibb.co/tDVz3VP/2021-12-19-17-22-IMG-3911.jpg'}}/></Pressable>
         })}
       >
         <Tab.Screen
           name="HomeStackGroup"
           component={HomeStackGroup}
-          options={{ tabBarLabel: "Home", headerShown: true, headerTitle: (props)=> <ImageComponent {...props} /> }}
+          options={{ tabBarLabel: "Home", headerTitle: (props)=> <ImageComponent {...props} /> }}
         />
         <Tab.Screen name="Messages" component={Messages} />
         <Tab.Screen name="Notifications" component={Notifications} />
@@ -93,7 +96,7 @@ const theme = useColorScheme()
   }
 
   return (
-    <NavigationContainer theme={theme ==='dark'? DarkTheme: DefaultTheme}>
+    <NavigationContainer theme={myTheme ==='dark'? DarkTheme: DefaultTheme}>
       <DrawerStack />
     </NavigationContainer>
   );
